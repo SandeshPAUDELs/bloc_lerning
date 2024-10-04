@@ -1,6 +1,7 @@
 import 'package:bloc_project/bloc/forms/form_bloc.dart';
 import 'package:bloc_project/bloc/forms/form_event.dart';
 import 'package:bloc_project/bloc/forms/form_state.dart';
+import 'package:bloc_project/views/second_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,6 +69,15 @@ class _FormExampleState extends State<FormExample> {
       body: Center(
         child: Column(
           children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProductListScreen()),
+                );
+              },
+              child: Text('go to another screen'),
+            ),
             BlocBuilder<FormBloc, CustomFormState>(
               builder: (context, state) {
                 return Expanded(
@@ -85,8 +95,9 @@ class _FormExampleState extends State<FormExample> {
                         trailing: IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () {
-                  context.read<FormBloc>().add(DeleteEvent(index: index));
-
+                            context
+                                .read<FormBloc>()
+                                .add(DeleteEvent(index: index));
                           },
                         ),
                       );

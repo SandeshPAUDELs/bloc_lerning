@@ -1,4 +1,6 @@
+import 'package:bloc_project/bloc/first/counter_bloc.dart';
 import 'package:bloc_project/bloc/forms/form_bloc.dart';
+import 'package:bloc_project/bloc/products/product_bloc.dart';
 import 'package:bloc_project/views/form_example.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +14,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<FormBloc>(
-      create: (context) => FormBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<FormBloc>(
+          create: (context) => FormBloc(),
+        ),
+        BlocProvider(
+          create: (context) => CounterBloc(),
+        ),
+        BlocProvider(create: (context) => ProductBloc()),
+      ],
       child: const MaterialApp(
         home: FormExample(),
         debugShowCheckedModeBanner: false,
