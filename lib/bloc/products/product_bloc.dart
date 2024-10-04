@@ -11,12 +11,23 @@ class ProductBloc extends Bloc<ProductsEvent, ProductState>{
 
   ProductBloc() : super(const ProductState()){
     on<FetchProducts>(_fetchProducts);
+    on<FetchProductDetails>(_fetchProductDetails);
+
   }
 
   Future<void> _fetchProducts(FetchProducts event, Emitter<ProductState> emit) async {
     await productsRepo.getProducts().then((value) {
       emit(state.copyWith(status: ProductStatus.success, products: value, message: 'success'));
     });
+  }
+  Future<void> _fetchProductDetails(FetchProductDetails event, Emitter<ProductState> emit) async {
+    emit(state.copyWith(status: ProductStatus.initial));
+    try {
+      final product = await ProductsRepo.getProduct(event.productId);
+      emit(state.copyWith(status: ProductStatus.success, productDetails: product));
+    } catch (e) {
+      emit(state.copyWith(status: ProductStatus.failure, message: 'Failed to load product details'));
+    }
   }
 
   

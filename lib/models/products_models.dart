@@ -26,3 +26,8 @@ class Products {
     return data;
   }
 }
+
+// singleProduct
+// class SingleProduct{
+
+// }
