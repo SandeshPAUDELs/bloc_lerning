@@ -29,10 +29,10 @@ class ProductState extends Equatable {
       message: message ?? this.message,
     );
   }
-  @override
-  String toString() {
-    return 'ProductState { status: $status, products: ${products.length}, productDetails: $productDetails, message: $message }';
-  }
+  // @override
+  // String toString() {
+  //   return 'ProductState { status: $status, products: ${products.length}, productDetails: $productDetails, message: $message }';
+  // }
 
 
   @override
