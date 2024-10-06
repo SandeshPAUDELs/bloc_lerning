@@ -30,3 +30,30 @@ class AddUserState extends Equatable{
   List<Object?> get props => [status, message, users];
 
 }
+
+class AuthenticatedUserState extends Equatable {
+  const AuthenticatedUserState({
+    this.status = AddUserStatus.initial,
+    this.message = '',
+    this.user,
+  });
+
+  final AddUserStatus status;
+  final String message;
+  final AuthenticatedUser? user;
+
+  AuthenticatedUserState copyWith({
+    AddUserStatus? status,
+    String? message,
+    AuthenticatedUser? user,
+  }) {
+    return AuthenticatedUserState(
+      status: status ?? this.status,
+      message: message ?? this.message,
+      user: user ?? this.user,
+    );
+  }
+
+  @override
+  List<Object?> get props => [status, message, user];
+}

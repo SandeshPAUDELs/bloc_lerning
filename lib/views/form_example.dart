@@ -3,6 +3,7 @@ import 'package:bloc_project/bloc/forms/form_event.dart';
 import 'package:bloc_project/bloc/forms/form_state.dart';
 import 'package:bloc_project/views/products_screen.dart';
 import 'package:bloc_project/views/users/add_users.dart';
+import 'package:bloc_project/views/users/login_users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -80,6 +81,7 @@ class _FormExampleState extends State<FormExample> {
               child: Text('go to another screen'),
             ),
             ElevatedButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddUsersView())), child: Text('Add Users')),
+            ElevatedButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreenView())), child: Text('Login')),
             BlocBuilder<FormBloc, CustomFormState>(
               builder: (context, state) {
                 return Expanded(

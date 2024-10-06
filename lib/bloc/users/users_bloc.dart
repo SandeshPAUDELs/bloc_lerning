@@ -34,6 +34,39 @@ class UsersBloc extends Bloc<AddUsersEvent, AddUserState> {
     ));
   }
 }
+}
 
+// for login
+
+class AuthenticateduserBloc extends Bloc<AuthenticatedUserEvent, AuthenticatedUserState> {
+  UsersRepo usersRepo = UsersRepo();
+  AuthenticatedUser? user;
+
+  AuthenticateduserBloc() : super(const AuthenticatedUserState()) {
+    on<LoginUsers>(_loginUser);
+  }
+  Future<void> _loginUser(LoginUsers event, Emitter<AuthenticatedUserState> emit) async {
+  try {
+    final user = await UsersRepo.login(event.username, event.password);
+    if (user != null) {
+      emit(state.copyWith(
+        status: AddUserStatus.success,
+        user: user,
+        message: 'Login successful',
+        
+      ));
+    } else {
+      emit(state.copyWith(
+        status: AddUserStatus.failure,
+        message: 'Login failed',
+      ));
+    }
+  } catch (e) {
+    emit(state.copyWith(
+      status: AddUserStatus.failure,
+      message: 'Failed to login',
+    ));
+  }
+}
 
 }

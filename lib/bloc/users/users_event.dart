@@ -17,3 +17,29 @@ class AddUsers extends AddUsersEvent{
   @override
   List<Object> get props => [user];
 }
+
+// for login
+abstract class AuthenticatedUserEvent extends Equatable{
+  const AuthenticatedUserEvent();
+  @override
+  List<Object> get props => [];
+
+}
+
+// class LoginUsers extends AuthenticatedUserEvent{
+//   final AuthenticatedUser user;
+
+//   const LoginUsers({required this.user, required String username, required String password});
+
+//   @override
+//   List<Object> get props => [user];
+// }
+class LoginUsers extends AuthenticatedUserEvent {
+  final String username;
+  final String password;
+
+  const LoginUsers({required this.username, required this.password});
+
+  @override
+  List<Object> get props => [username, password];
+}

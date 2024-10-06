@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(create: (context) => ProductBloc()),
         BlocProvider(create: (context) => UsersBloc()),
+        BlocProvider(create: (context) => AuthenticateduserBloc()),
       ],
       child: const MaterialApp(
         home: FormExample(),
