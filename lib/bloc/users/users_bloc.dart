@@ -3,6 +3,7 @@ import 'package:bloc_project/bloc/users/users_event.dart';
 import 'package:bloc_project/bloc/users/users_state.dart';
 import 'package:bloc_project/models/users_models.dart';
 import 'package:bloc_project/respository/users_repo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UsersBloc extends Bloc<AddUsersEvent, AddUserState> {
   UsersRepo usersRepo = UsersRepo();
@@ -49,12 +50,15 @@ class AuthenticateduserBloc extends Bloc<AuthenticatedUserEvent, AuthenticatedUs
   try {
     final user = await UsersRepo.login(event.username, event.password);
     if (user != null) {
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('auth_token', user.token);
       emit(state.copyWith(
         status: AddUserStatus.success,
         user: user,
         message: 'Login successful',
         
       ));
+
     } else {
       emit(state.copyWith(
         status: AddUserStatus.failure,

@@ -3,16 +3,28 @@ import 'package:bloc_project/bloc/users/users_event.dart';
 import 'package:bloc_project/bloc/users/users_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginScreenView extends StatelessWidget {
+class LoginScreenView extends StatefulWidget {
   const LoginScreenView({super.key});
 
   @override
+  State<LoginScreenView> createState() => _LoginScreenViewState();
+}
+
+class _LoginScreenViewState extends State<LoginScreenView> {
+  @override
+  void initState(){
+    super.initState();
+    getToken();
+  }
+  var token = "Nothing";
   Widget build(BuildContext context) {
     final usernameController = TextEditingController();
     final passwordController = TextEditingController();
 
     return Scaffold(
+      
       body: BlocListener<AuthenticateduserBloc, AuthenticatedUserState>(
         listener: (context, state) {
           if (state.status == AddUserStatus.success) {
@@ -29,6 +41,7 @@ class LoginScreenView extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
+              Text('stored token is : ${token}'),
               TextField(
                 controller: usernameController,
                 decoration: const InputDecoration(
@@ -65,5 +78,15 @@ class LoginScreenView extends StatelessWidget {
         ),
       ),
     );
+  }
+  
+  Future<void> getToken() async {
+    var prefix = await SharedPreferences.getInstance();
+    var storedToken = prefix.getString("auth_token");
+    token = storedToken ?? "Nothing";
+    setState(() {
+      
+    });
+
   }
 }

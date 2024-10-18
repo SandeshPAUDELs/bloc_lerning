@@ -7,6 +7,7 @@ import 'package:bloc_project/views/users/login_users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FormExample extends StatefulWidget {
   const FormExample({super.key});
@@ -16,9 +17,15 @@ class FormExample extends StatefulWidget {
 }
 
 class _FormExampleState extends State<FormExample> {
+  var nameValue = 'Nothing';
   final nameController = TextEditingController();
   final ageController = TextEditingController();
   final phoneController = TextEditingController();
+  @override
+  void initState(){
+    super.initState();
+    getValue();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +63,9 @@ class _FormExampleState extends State<FormExample> {
                   ),
                   actions: [
                     OutlinedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        var prefiz = await SharedPreferences.getInstance();
+                        prefiz.setString("name", nameController.text);
                         context.read<FormBloc>().add(SaveEvent(
                             name: nameController.text,
                             age: int.parse(ageController.text),
@@ -80,6 +89,7 @@ class _FormExampleState extends State<FormExample> {
               },
               child: Text('go to another screen'),
             ),
+            Text(nameValue),
             ElevatedButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddUsersView())), child: Text('Add Users')),
             ElevatedButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreenView())), child: Text('Login')),
             BlocBuilder<FormBloc, CustomFormState>(
@@ -115,4 +125,16 @@ class _FormExampleState extends State<FormExample> {
       ),
     );
   }
+  
+  Future<void> getValue() async {
+    var prefix = await SharedPreferences.getInstance();
+    var n = prefix.getString("name");
+    nameValue = n ?? "Nothing";
+    setState(() {
+      
+    });
+
+  }
 }
+
+

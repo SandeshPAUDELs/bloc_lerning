@@ -31,36 +31,6 @@ class UsersRepo {
     }
   }
 
-  // for login 
-  //   static Future<AuthenticatedUser?> login(String username, String password) async {
-  //   try {
-  //     final response = await http.post(
-  //       Uri.parse('https://fakestoreapi.com/auth/login'),
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: json.encode({
-  //         'username': username,
-  //         'password': password,
-  //       }),
-  //     );
-
-  //     print('Response status: ${response.statusCode}');
-  //     print('Response body: ${response.body}');
-
-  //     if (response.statusCode == 200) {
-  //       var decodedResponse = jsonDecode(response.body);
-  //       AuthenticatedUser user = AuthenticatedUser.fromJson(decodedResponse);
-  //       return user;
-  //     } else {
-  //       print('Login failed with status: ${response.statusCode}');
-  //       return null;
-  //     }
-  //   } catch (e) {
-  //     print('Error during login: $e');
-  //     return null;
-  //   }
-  // }
   static Future<AuthenticatedUser?> login(String username, String password) async {
   try {
     final response = await http.post(
