@@ -24,12 +24,14 @@ class AddUsersModels{
   // for login
   class AuthenticatedUser {
     final String username;
-    final String token;
-    AuthenticatedUser({required this.username, required this.token});
+    final String accessToken;
+    final int userId;
+    AuthenticatedUser({required this.username, required this.accessToken, required this.userId});
     factory AuthenticatedUser.fromJson(Map<String, dynamic> json) {
       return AuthenticatedUser(
         username: json['username'],
-        token: json['token'],
+        accessToken: json['accessToken'],
+        userId: json['id'],
       );
     }
   }

@@ -1,3 +1,4 @@
+import 'package:bloc_project/bloc/carts/carts_bloc.dart';
 import 'package:bloc_project/bloc/first/counter_bloc.dart';
 import 'package:bloc_project/bloc/forms/form_bloc.dart';
 import 'package:bloc_project/bloc/products/product_bloc.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ProductBloc()),
         BlocProvider(create: (context) => UsersBloc()),
         BlocProvider(create: (context) => AuthenticateduserBloc()),
+        BlocProvider(create: (context) => CartBloc()),
       ],
       child: const MaterialApp(
         home: FormExample(),

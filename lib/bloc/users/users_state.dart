@@ -1,3 +1,4 @@
+import 'package:bloc_project/models/cart_models.dart';
 import 'package:bloc_project/models/users_models.dart';
 import 'package:equatable/equatable.dart';
 enum AddUserStatus { initial, success, failure }

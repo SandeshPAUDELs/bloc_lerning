@@ -26,14 +26,6 @@ abstract class AuthenticatedUserEvent extends Equatable{
 
 }
 
-// class LoginUsers extends AuthenticatedUserEvent{
-//   final AuthenticatedUser user;
-
-//   const LoginUsers({required this.user, required String username, required String password});
-
-//   @override
-//   List<Object> get props => [user];
-// }
 class LoginUsers extends AuthenticatedUserEvent {
   final String username;
   final String password;

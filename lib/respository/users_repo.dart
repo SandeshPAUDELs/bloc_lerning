@@ -34,7 +34,7 @@ class UsersRepo {
   static Future<AuthenticatedUser?> login(String username, String password) async {
   try {
     final response = await http.post(
-      Uri.parse('https://fakestoreapi.com/auth/login'),
+      Uri.parse('https://dummyjson.com/auth/login'),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -45,21 +45,32 @@ class UsersRepo {
     );
 
     print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
 
     if (response.statusCode == 200) {
       var decodedResponse = jsonDecode(response.body);
       // Ensure correct key parsing
-      if (decodedResponse is Map<String, dynamic> && decodedResponse.containsKey('token')) {
+      // if (decodedResponse is Map<String, dynamic> && decodedResponse.containsKey('accessToken')) {
+      //   AuthenticatedUser user = AuthenticatedUser(
+      //     username: username,
+      //     userId: decodedResponse['id'],
+      //     accessToken: decodedResponse['accessToken'],
+      //   );
+      //   return user;
+      // } 
+      print(decodedResponse);
+      if (decodedResponse is Map<String, dynamic> && decodedResponse.containsKey('accessToken')) {
         AuthenticatedUser user = AuthenticatedUser(
           username: username,
-          token: decodedResponse['token'],
+          userId: decodedResponse['id'],
+          accessToken: decodedResponse['accessToken'],
         );
         return user;
-      } else {
+      }
+      else {
         throw Exception('Token not found in response');
       }
-    } else {
+    } 
+    else {
       print('Login failed with status: ${response.statusCode}');
       return null;
     }
